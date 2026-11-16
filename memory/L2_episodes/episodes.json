@@ -1,0 +1,93 @@
+[
+  {
+    "id": "20261004-01",
+    "date": "2026-10-02",
+    "title": "C3：抽样判断「群里没人回我」是错的",
+    "expected": 0.75,
+    "actual": 0.25,
+    "delta": -0.5,
+    "tags": [
+      "C3",
+      "取证",
+      "抽样偏差"
+    ],
+    "skills": [
+      "submission-audit"
+    ],
+    "file": "20261004-01-c3-sampling-wrong.md",
+    "imported": true,
+    "source": ".workbuddy/memory/2026-10-04.md"
+  },
+  {
+    "id": "20261004-02",
+    "date": "2026-10-04",
+    "title": "C4B：代码块多行被渲染成一行",
+    "expected": 0.85,
+    "actual": 0.55,
+    "delta": -0.3,
+    "tags": [
+      "C4B",
+      "渲染",
+      "自检"
+    ],
+    "skills": [
+      "submission-audit"
+    ],
+    "file": "20261004-02-c4b-codeblock-bug.md",
+    "imported": true,
+    "source": ".workbuddy/memory/2026-10-04.md"
+  },
+  {
+    "id": "20261004-03",
+    "date": "2026-10-04",
+    "title": "C4C：特征值符号反转，被不变量抓住",
+    "expected": 0.95,
+    "actual": 0.6,
+    "delta": -0.35,
+    "tags": [
+      "C4C",
+      "自校验",
+      "LaTeX"
+    ],
+    "skills": [
+      "submission-audit"
+    ],
+    "file": "20261004-03-c4c-eigen-bug.md",
+    "imported": true,
+    "source": ".workbuddy/memory/2026-10-04.md"
+  },
+  {
+    "id": "20261004-04",
+    "date": "2026-10-04",
+    "title": "C2G：3-seed 对照推翻了「4096 词表更好」的预测",
+    "expected": 0.8,
+    "actual": 0.3,
+    "delta": -0.5,
+    "tags": [
+      "C2G",
+      "实验设计",
+      "口径"
+    ],
+    "skills": [],
+    "file": "20261004-04-c2g-prediction-refuted.md",
+    "imported": true,
+    "source": ".workbuddy/memory/2026-10-04.md"
+  },
+  {
+    "id": "20261004-05",
+    "date": "2026-10-04",
+    "title": "C4A：黄金集直接产出 4 个真 bug",
+    "expected": 0.6,
+    "actual": 0.9,
+    "delta": 0.3,
+    "tags": [
+      "C4A",
+      "黄金集",
+      "评审"
+    ],
+    "skills": [],
+    "file": "20261004-05-c4a-real-bugs.md",
+    "imported": true,
+    "source": ".workbuddy/memory/2026-10-04.md"
+  }
+]
