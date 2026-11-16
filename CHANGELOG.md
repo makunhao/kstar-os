@@ -3,6 +3,12 @@
 All notable changes to this project are documented here.
 Format follows Keep a Changelog; versioning follows SemVer.
 
+## [0.3.1] — 2026-11-16
+
+### Added
+- GitHub Pages 入口 `docs/index.html`
+- README 增加仓库与在线演示地址
+
 ## [0.3.0] — 2026-11-16
 
 ### Added

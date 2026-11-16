@@ -14,7 +14,7 @@
 | 浏览器 | Chrome（Windows） | `/c/Program Files/Google/Chrome/Application/chrome.exe` | 无头截图 | 2026-11-16 ✅ |
 | 大模型 | Claude（本会话） | mythos-magpie-8067699270 | 推理、生成、审校 | 2026-11-16 ✅ |
 | 大模型 | Ollama | 0.31.1，模型已清空 | 本地推理（需重新 pull） | 2026-11-16 ⚠️ 无模型 |
-| 代码托管 | GitHub | github.com 可达（沙箱 200） | C5/C5A | 2026-11-16 ✅ 无 token |
+| 代码托管 | GitHub | github.com 可达；发布用临时 token（不落盘） | C5/C5A | 2026-11-16 ✅ 已推送 |
 | 连接器 | 飞书 | auth-required | C3 证据 | 2026-11-16 ❌ 过期 |
 
 ## 调用规则

@@ -1,5 +1,7 @@
 # KSTAR OS
 
+> 仓库：https://github.com/makunhao/kstar-os · 在线演示：https://makunhao.github.io/kstar-os/
+
 一句话：输入一条经历或一个任务，输出**可检索的经验**（L2）、**可调用的技能**（L3）和**可校准的预期偏差**（ΔR）。
 
 零第三方依赖，纯 Python 标准库 + Markdown 文件。`git clone` 后用一条命令就能看到自己的第二大脑状态。
