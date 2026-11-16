@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KSTAR 助手 · 把经历变成下一次的计划</title>
+<style>
+  :root{
+    --ink:#1a1a1f; --muted:#6f6f7a; --line:#e3e3ea; --bg:#f7f6f3; --card:#fff;
+    --accent:#2b4acb; --accent-soft:#eef1ff; --good:#0a7d32; --warn:#b26a00;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC","PingFang SC",sans-serif;
+    line-height:1.65}
+  header{padding:40px 28px 10px;max-width:1180px;margin:0 auto}
+  h1{font-size:30px;margin:0 0 8px;letter-spacing:-.02em}
+  h1 span{color:var(--accent)}
+  .sub{color:var(--muted);font-size:15px;max-width:760px}
+  .wrap{max-width:1180px;margin:0 auto;padding:16px 28px 60px;display:grid;
+    grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+  @media(max-width:900px){.wrap{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+  .card h2{font-size:15px;margin:0 0 12px;letter-spacing:.02em;color:var(--muted);font-weight:600}
+  label{display:block;font-size:13px;color:var(--muted);margin:12px 0 6px}
+  textarea,input,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;
+    font:inherit;font-size:14px;background:#fff;color:var(--ink);resize:vertical}
+  textarea:focus,input:focus,select:focus{outline:2px solid var(--accent-soft);border-color:var(--accent)}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  button{padding:10px 16px;border-radius:10px;border:1px solid var(--line);background:#fff;
+    font:inherit;font-size:14px;cursor:pointer;color:var(--ink)}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  button:hover:not(:disabled){transform:translateY(-1px)}
+  .hint{font-size:12px;color:var(--muted);margin-top:8px}
+  .hits{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+  .hit{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px;background:#fcfcfd}
+  .hit b{font-weight:600}
+  .hit .meta{color:var(--muted);font-size:12px}
+  .score{float:right;color:var(--muted);font-size:12px}
+  #out{min-height:420px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px;
+    white-space:pre-wrap;background:#fbfbfd}
+  #status{font-size:12px;color:var(--muted);margin-top:10px}
+  #status b{color:var(--ink)}
+  .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;
+    background:var(--accent-soft);color:var(--accent);margin-left:6px}
+  .pill.off{background:#f1f1f4;color:var(--muted)}
+  details{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+  summary{cursor:pointer;font-size:13px;color:var(--muted)}
+  .ai-box{margin-top:10px}
+  footer{max-width:1180px;margin:0 auto;padding:0 28px 40px;color:var(--muted);font-size:12px}
+  .kbd{font-family:ui-monospace,monospace;background:#f1f1f4;border:1px solid var(--line);
+    border-radius:6px;padding:1px 6px;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>KSTAR <span>助手</span></h1>
+  <p class="sub">
+    输入一个任务，它先在你的经验库里检索相似的坑，再生成一份带 <b>R̂（预期达成度）</b> 的计划。
+    做完之后填 R，差值 ΔR 就是下一次的判断依据。
+  </p>
+</header>
+
+<div class="wrap">
+  <section class="card">
+    <h2>1 · 这次要做什么</h2>
+    <label for="task">任务（一句话，带可验证的成功标准）</label>
+    <textarea id="task" rows="3" placeholder="例：把 C6A 仪表盘改成能扫任意提交目录，并给出缺失清单"></textarea>
+
+    <label for="situation">情境 / 约束（时间、权限、已知风险）</label>
+    <textarea id="situation" rows="2" placeholder="例：无后端；只有 2 小时；提交文件命名不统一"></textarea>
+
+    <label for="expect">R̂ 预期达成度（0–1，开工前写）</label>
+    <input id="expect" type="number" min="0" max="1" step="0.05" value="0.7">
+
+    <div class="row">
+      <button id="recall" class="primary">检索相似经验</button>
+      <button id="plan">生成 KSTAR 计划</button>
+    </div>
+    <div class="hint">检索在本机完成，不上传任何内容；生成计划在未配置 Key 时使用模板。</div>
+
+    <div id="hits" class="hits"></div>
+
+    <details>
+      <summary>AI 增强（可选，自带 Key）</summary>
+      <div class="ai-box">
+        <label for="base">接口地址（OpenAI 兼容）</label>
+        <input id="base" value="https://api.openai.com/v1" />
+        <label for="model">模型</label>
+        <input id="model" value="gpt-4o-mini" />
+        <label for="key">API Key（只保存在本页内存，刷新即清空）</label>
+        <input id="key" type="password" placeholder="sk-..." autocomplete="off" />
+        <div class="hint">配置后，「生成计划」会把任务 + 检索到的经验发给模型，生成更具体的步骤与 R̂ 建议。</div>
+      </div>
+    </details>
+  </section>
+
+  <section class="card">
+    <h2>2 · 计划 <span id="mode" class="pill off">模板模式</span></h2>
+    <textarea id="out" spellcheck="false"></textarea>
+    <div class="row">
+      <button id="copy">复制 Markdown</button>
+      <button id="download">下载 .md</button>
+      <button id="clear">清空</button>
+    </div>
+    <div id="status">就绪 · 经验 <b id="nEp">0</b> 条 · 技能 <b id="nSk">0</b> 个</div>
+  </section>
+</div>
+
+<footer>
+  数据来自仓库内 <span class="kbd">memory/</span>（经验与技能元数据）。本页是静态文件，可直接双击打开或部署到任意静态托管。
+  无 Key 时不会发起任何网络请求；配置 Key 后仅你填写的接口地址会收到内容。
+</footer>
+
+<script>
+const DATA = {
+  episodes: [
+    {date:"2026-10-02",title:"C3：抽样判断「群里没人回我」是错的",delta:-0.5,
+     lesson:"抽样得出的否定结论不可信；要证明「没发生」必须全量拉取并确认 has_more:false。",tags:["C3","取证"]},
+    {date:"2026-10-04",title:"C4B：代码块多行被渲染成一行",delta:-0.3,
+     lesson:"渲染类 bug 只能靠真实输出发现；代码看起来对不等于渲染出来对。",tags:["C4B","渲染"]},
+    {date:"2026-10-04",title:"C4C：特征值符号反转，被不变量抓住",delta:-0.35,
+     lesson:"自校验只能覆盖它建模过的错误；数学正确性要同时用不变量与渲染结果验证。",tags:["C4C","自校验"]},
+    {date:"2026-10-04",title:"C2G：3-seed 对照推翻了「4096 词表更好」的预测",delta:-0.5,
+     lesson:"预测被推翻不是失败，隐藏前提（训练是否收敛）才是；判据与结论要同一口径。",tags:["C2G","实验"]},
+    {date:"2026-10-04",title:"C4A：黄金集直接产出 4 个真 bug",delta:0.3,
+     lesson:"验证集必须来自真实数据；文档里的数字要和实测对齐，差 1 行也要改。",tags:["C4A","评审"]}
+  ],
+  skills: [
+    {name:"submission-audit",desc:"交付包体检：关键文件、空壳、命名、AI 日志质量"},
+    {name:"dashboard-build",desc:"提交数据 JSON → 单文件可筛选仪表盘"},
+    {name:"repo-release",desc:"开源仓库发布前检查：文件、README 章节、git 历史"},
+    {name:"github-repo-analysis",desc:"先出客观事实，再写仓库判断"},
+    {name:"weekly-aar",desc:"从 L2 经验生成八维 AAR 草稿"},
+    {name:"content-outline",desc:"真实经历 → 文章六段结构与标题候选"}
+  ]
+};
+
+const $ = id => document.getElementById(id);
+const state = {hits: []};
+
+function tokens(q){
+  const latin = (q.toLowerCase().match(/[a-z0-9_+-]{2,}/g)||[]);
+  const han = (q.match(/[一-鿿]{2,}/g)||[]);
+  const grams = new Set(latin);
+  han.forEach(h=>{ grams.add(h); for(let i=0;i<h.length-1;i++) grams.add(h.slice(i,i+2)); });
+  return [...grams];
+}
+
+function search(q){
+  const gs = tokens(q);
+  const score = text => gs.reduce((s,g)=>s + (text.toLowerCase().split(g).length-1), 0);
+  const eps = DATA.episodes.map(e=>({...e,type:"经验",s:score(e.title+e.lesson+e.tags.join(" "))}))
+    .filter(e=>e.s>0);
+  const sks = DATA.skills.map(s=>({...s,type:"技能",s:score(s.name+s.desc)}))
+    .filter(s=>s.s>0);
+  return [...eps,...sks].sort((a,b)=>b.s-a.s).slice(0,6);
+}
+
+function renderHits(hits){
+  if(!hits.length){ $("hits").innerHTML = `<div class="hint">没有命中。换个说法，或先把这个任务记进 L1。</div>`; return; }
+  $("hits").innerHTML = hits.map(h=>`
+    <div class="hit"><span class="score">${h.type} · ${h.s}</span>
+      <b>${h.title||h.name}</b>
+      <div class="meta">${h.type==="经验" ? h.date+" · ΔR "+h.delta.toFixed(2) : "可调用技能"}</div>
+      <div>${h.lesson||h.desc}</div>
+    </div>`).join("");
+}
+
+function template(){
+  const task = $("task").value.trim() || "（待填写任务）";
+  const sit = $("situation").value.trim() || "（待补：约束、资源、当前状态）";
+  const exp = $("expect").value || "0.7";
+  const hits = state.hits;
+  const skills = hits.filter(h=>h.type==="技能").map(h=>h.name);
+  const eps = hits.filter(h=>h.type==="经验").map(h=>h.date+" "+h.title);
+  return `# KSTAR 计划 · ${task}
+
+## K — 检索到的知识
+- 相关技能：${skills.join("、") || "（无，先看 L1 原始笔记）"}
+- 相关经验：${eps.join("；") || "（无）"}
+- 最该先读的一条：${hits[0] ? (hits[0].lesson || hits[0].desc) : "（无命中）"}
+
+## S — 情境
+${sit}
+
+## T — 任务
+${task}
+
+## Â — 行动计划
+1. 先验证前提：把任务拆成「必须成立的条件」，逐条确认。
+2. 用上面的技能跑第一版，产出可打开的中间物。
+3. 用另一条路径自检（换算法 / 换数据源 / 换人看）。
+4. 记录实际结果 R，与 R̂ 比较。
+
+## R̂ — 预期结果
+${exp}（开工前写，做完填 R，差值 ΔR 写回 L2）
+`;
+}
+
+async function aiPlan(){
+  const key = $("key").value.trim();
+  if(!key) return null;
+  const base = $("base").value.trim().replace(/\/$/,"");
+  const model = $("model").value.trim();
+  const context = state.hits.map(h=>`- [${h.type}] ${h.title||h.name}：${h.lesson||h.desc}`).join("\n");
+  const prompt = `你是 KSTAR 教练。根据任务、情境与历史经验，输出一份 Markdown 格式的 KSTAR 计划（K/S/T/Â/R̂ 五段）。
+要求：Â 至少 4 步，每步是可执行动作；R̂ 给 0–1 的数值并说明成功标准；不要写空话。
+
+任务：${$("task").value}
+情境：${$("situation").value}
+历史经验：
+${context || "（无）"}
+R̂ 初值：${$("expect").value}`;
+  const res = await fetch(base + "/chat/completions", {
+    method:"POST",
+    headers:{"Content-Type":"application/json","Authorization":"Bearer "+key},
+    body: JSON.stringify({model, messages:[{role:"user",content:prompt}], temperature:0.4})
+  });
+  if(!res.ok) throw new Error("HTTP "+res.status+" "+(await res.text()).slice(0,200));
+  const data = await res.json();
+  return data.choices?.[0]?.message?.content || null;
+}
+
+function setStatus(text){ $("status").innerHTML = text; }
+
+$("recall").onclick = () => {
+  const q = ($("task").value + " " + $("situation").value).trim();
+  if(!q){ setStatus("先写任务，再检索。"); return; }
+  state.hits = search(q);
+  renderHits(state.hits);
+  setStatus(`检索完成 · 命中 <b>${state.hits.length}</b> 条 · 经验 <b>${DATA.episodes.length}</b> 条 · 技能 <b>${DATA.skills.length}</b> 个`);
+};
+
+$("plan").onclick = async () => {
+  if(!state.hits.length) $("recall").click();
+  const btn = $("plan");
+  btn.disabled = true;
+  try{
+    let text = null;
+    if($("key").value.trim()){
+      setStatus("正在调用模型…");
+      text = await aiPlan();
+      $("mode").textContent = "AI 模式"; $("mode").classList.remove("off");
+    }
+    if(!text){ text = template(); $("mode").textContent = "模板模式"; $("mode").classList.add("off"); }
+    $("out").value = text;
+    setStatus("已生成 · " + (text.length) + " 字符 · 记得做完回填 R");
+  }catch(e){
+    $("out").value = template();
+    setStatus("模型调用失败（" + e.message.slice(0,80) + "），已回退到模板模式");
+  }finally{ btn.disabled = false; }
+};
+
+$("copy").onclick = async () => {
+  try{ await navigator.clipboard.writeText($("out").value); setStatus("已复制到剪贴板"); }
+  catch(e){ $("out").select(); document.execCommand("copy"); setStatus("已复制（兼容模式）"); }
+};
+$("download").onclick = () => {
+  const blob = new Blob([$("out").value], {type:"text/markdown"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "kstar-plan.md"; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+};
+$("clear").onclick = () => { $("out").value=""; setStatus("已清空"); };
+
+$("nEp").textContent = DATA.episodes.length;
+$("nSk").textContent = DATA.skills.length;
+</script>
+</body>
+</html>
