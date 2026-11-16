@@ -1,0 +1,13 @@
+{
+  "name": "github-repo-analysis",
+  "uses": [
+    {
+      "ts": "2026-11-16 14:09:45+0800",
+      "context": "C5A：分析 neolaf2/neoskills（zip 下载，112 文件）",
+      "outcome": "产出 6 条改进建议，其中 2 条是真实缺陷（失效导入、Windows 无符号链接降级）",
+      "delta": 0.3,
+      "public": ""
+    }
+  ],
+  "iterations": []
+}
