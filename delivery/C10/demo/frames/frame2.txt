@@ -1,0 +1,6 @@
+$ python3 scripts/kstar.py recall "渲染 bug"
+[recall] 「渲染 bug」命中 4 份，前 4：
+     4  memory/L2_episodes/20261004-02-c4b-codeblock-bug.md  20261004-02-c4b-codeblock-bug
+     4  memory/L2_episodes/20261004-03-c4c-eigen-bug.md  20261004-03-c4c-eigen-bug
+     2  memory/L2_episodes/20261004-05-c4a-real-bugs.md  20261004-05-c4a-real-bugs
+     1  memory/L2_episodes/20261116140952-C6A-18-条评审变成仪表盘.md  20261116140952-C6A-18-条评审变成仪表盘
