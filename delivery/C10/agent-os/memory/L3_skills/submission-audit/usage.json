@@ -1,0 +1,20 @@
+{
+  "name": "submission-audit",
+  "uses": [
+    {
+      "ts": "2026-11-16 13:45:19+0800",
+      "context": "对 C10 交付包（草稿）跑首轮体检",
+      "outcome": "报出 README/AI日志/AAR/拿来说明缺件，符合预期",
+      "delta": 0.0,
+      "public": ""
+    },
+    {
+      "ts": "2026-11-16 14:10:13+0800",
+      "context": "C6A：交付前体检",
+      "outcome": "17 文件 / 466.7 KB；核心 4 项齐全；AI 日志结构化分 100；仅提示缺可选验证报告",
+      "delta": 0.0,
+      "public": ""
+    }
+  ],
+  "iterations": []
+}
