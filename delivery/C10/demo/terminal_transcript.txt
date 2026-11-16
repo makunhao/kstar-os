@@ -1,0 +1,59 @@
+$ python3 scripts/kstar.py status
+KSTAR OS 状态
+  工作目录 : ~/kstar-os
+  L1 原始  : 1 个日期文件
+  L2 经验  : 7 条
+  L3 技能  : 6 个（content-outline, dashboard-build, github-repo-analysis, repo-release, submission-audit, weekly-aar）
+  L4 工具  : config/tools.md
+  L5 界面  : CLI + export-html
+  技能调用 : 7 次
+  运行日志 : 15 条
+  平均|ΔR| : 0.319
+
+
+$ python3 scripts/kstar.py recall "渲染 bug"
+[recall] 「渲染 bug」命中 4 份，前 4：
+     4  memory/L2_episodes/20261004-02-c4b-codeblock-bug.md  20261004-02-c4b-codeblock-bug
+     4  memory/L2_episodes/20261004-03-c4c-eigen-bug.md  20261004-03-c4c-eigen-bug
+     2  memory/L2_episodes/20261004-05-c4a-real-bugs.md  20261004-05-c4a-real-bugs
+     1  memory/L2_episodes/20261116140952-C6A-18-条评审变成仪表盘.md  20261116140952-C6A-18-条评审变成仪表盘
+
+$ python3 scripts/kstar.py plan "给 C7 文章写结构" --expect 0.7
+# KSTAR 计划 · 给 C7 文章写结构
+
+## K — 检索到的知识
+- 相关 Skill：content-outline, github-repo-analysis
+- 相关经验：20261004-02-c4b-codeblock-bug, 20261116140952-C5A-读懂-neoskills-并找到两个真缺陷
+
+## S — 情境
+（待补：约束、资源、当前状态）
+
+## T — 任务
+给 C7 文章写结构
+
+## Â — 行动计划
+1. （步骤 1）
+2. （步骤 2）
+3. （步骤 3）
+
+## R̂ — 预期结果（0–1，必须写，做完才能算 ΔR）
+0.7
+
+
+$ python3 scripts/kstar.py reflect --since 2026-10-01
+# KSTAR 周复盘（2026-10-02 → 2026-11-16）
+
+- 经验条数：7
+- 平均 ΔR：-0.233（|ΔR| 均值 0.319）
+- 调用技能：submission-audit×4, dashboard-build×1, github-repo-analysis×1
+
+## 偏差最大的三条
+
+- **C3：抽样判断「群里没人回我」是错的**（2026-10-02）ΔR=-0.500
+- **C2G：3-seed 对照推翻了「4096 词表更好」的预测**（2026-10-04）ΔR=-0.500
+- **C4C：特征值符号反转，被不变量抓住**（2026-10-04）ΔR=-0.350
+
+## 下一步
+- 把 |ΔR| 最大的经验对应技能改一版；
+- 下周只保留真正被调用的技能。
+
