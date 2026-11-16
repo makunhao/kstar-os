@@ -1,0 +1,37 @@
+{
+  "pack": "C10交付包",
+  "files": 69,
+  "bytes": 526628,
+  "checks": {
+    "README": [
+      "README.md"
+    ],
+    "AI日志": [
+      "十三_C10_AI日志.md"
+    ],
+    "AAR/复盘": [
+      "十三_C10_AAR.md",
+      "agent-os/memory/L3_skills/weekly-aar/aar.py",
+      "十三_C10_skills/weekly-aar/aar.py"
+    ],
+    "拿来说明": [
+      "十三_C10_拿来说明.md"
+    ],
+    "方案/架构": [
+      "十三_C10_architecture.md"
+    ],
+    "验证报告": [],
+    "教学说明": []
+  },
+  "missing": [],
+  "empty": [],
+  "warnings": [
+    "可选：验证报告 未找到",
+    "可选：教学说明 未找到",
+    "顶层 md 命名不含 姓名_C编号：README.md"
+  ],
+  "ai_log": {
+    "level": "good",
+    "score": 100
+  }
+}
