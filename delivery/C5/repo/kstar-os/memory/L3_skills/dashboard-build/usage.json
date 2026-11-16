@@ -1,0 +1,13 @@
+{
+  "name": "dashboard-build",
+  "uses": [
+    {
+      "ts": "2026-11-16 13:51:57+0800",
+      "context": "C6A：18 条评审记录 → 单文件仪表盘",
+      "outcome": "生成成功；首版挑战列按长度排序（C1,C2,C3,C4,C2A），改自然排序后重建；Playwright 截图 3 张",
+      "delta": -0.2,
+      "public": ""
+    }
+  ],
+  "iterations": []
+}
