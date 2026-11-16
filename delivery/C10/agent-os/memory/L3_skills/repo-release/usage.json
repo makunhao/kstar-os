@@ -1,0 +1,13 @@
+{
+  "name": "repo-release",
+  "uses": [
+    {
+      "ts": "2026-11-16 14:09:46+0800",
+      "context": "C5：对 kstar-os 做发布检查",
+      "outcome": "硬性检查通过；提示缺依赖声明（零依赖已在 README 说明）、缺测试（实际有 9 个）",
+      "delta": 0.0,
+      "public": ""
+    }
+  ],
+  "iterations": []
+}
