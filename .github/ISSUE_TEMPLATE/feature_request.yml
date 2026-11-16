@@ -1,0 +1,32 @@
+name: Feature request
+description: 提一个符合项目边界的新功能
+title: "[feat] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 它解决什么问题
+      description: 先写问题，不要先写方案
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 你的方案
+      description: 命令长什么样？输入输出是什么？
+    validations:
+      required: true
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: 边界检查
+      options:
+        - label: 不引入运行时第三方依赖
+          required: true
+        - label: 不把 Markdown 存储换成数据库（除非附基准数据）
+          required: true
+        - label: 不自动生成 R̂ / ΔR
+          required: true
+        - label: 会附带至少一个测试
+          required: true
