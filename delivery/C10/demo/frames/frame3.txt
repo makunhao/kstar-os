@@ -1,0 +1,20 @@
+$ python3 scripts/kstar.py plan "给 C7 文章写结构" --expect 0.7
+# KSTAR 计划 · 给 C7 文章写结构
+
+## K — 检索到的知识
+- 相关 Skill：content-outline, github-repo-analysis
+- 相关经验：20261004-02-c4b-codeblock-bug, 20261116140952-C5A-读懂-neoskills-并找到两个真缺陷
+
+## S — 情境
+（待补：约束、资源、当前状态）
+
+## T — 任务
+给 C7 文章写结构
+
+## A^ — 行动计划
+1. （步骤 1）
+2. （步骤 2）
+3. （步骤 3）
+
+## R^ — 预期结果（0–1，必须写，做完才能算 ΔR）
+0.7
