@@ -1,0 +1,13 @@
+{
+  "name": "content-outline",
+  "uses": [
+    {
+      "ts": "2026-11-16 14:09:46+0800",
+      "context": "C7：两篇文章的结构与标题",
+      "outcome": "六段结构可用；AI 初稿偏教程，人工重写叙事；标题 10 选 2",
+      "delta": -0.1,
+      "public": ""
+    }
+  ],
+  "iterations": []
+}
